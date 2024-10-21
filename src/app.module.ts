@@ -5,8 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import configurations from './config/config';
 import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { UserModule } from './modules/user/user.module';
+import { User } from './modules/user/user.entity';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './exceptions/filters/allExceptionFilter';
 
-const models = [];
+const models = [User];
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [configurations] }),
@@ -26,6 +29,12 @@ const models = [];
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+  ],
 })
 export class AppModule {}

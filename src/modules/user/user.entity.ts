@@ -2,7 +2,11 @@ import { Column, Model, Table } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 import { Role } from '../../constants';
 
-@Table({ modelName: 'users' })
+@Table({
+  modelName: 'users',
+  tableName: 'users',
+  defaultScope: { attributes: { exclude: ['password'] } },
+})
 export class User extends Model<User> {
   @Column({
     type: DataTypes.STRING,
@@ -35,4 +39,16 @@ export class User extends Model<User> {
     defaultValue: Role.User,
   })
   role: string;
+
+  @Column({
+    type: DataTypes.DATE,
+    allowNull: false,
+  })
+  createdAt: string;
+
+  @Column({
+    type: DataTypes.DATE,
+    allowNull: false,
+  })
+  updatedAt: string;
 }
