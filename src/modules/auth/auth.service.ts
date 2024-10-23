@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from '../user/user.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcrypt';
-import { ApiValidationException } from '../../exceptions/apiValidationException';
 import { JwtService } from '@nestjs/jwt';
 import { SuccessResponseDTO } from '../../responses';
 import { CreateUserDto } from '../user/user.dto';
